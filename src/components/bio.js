@@ -6,12 +6,13 @@
  */
 
 import React from "react"
+import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
 
 import { rhythm } from "../utils/typography"
 
-const Bio = () => {
+const Bio = (props, { t }) => {
   const data = useStaticQuery(graphql`
     query BioQuery {
       avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
@@ -57,14 +58,18 @@ const Bio = () => {
         }}
       />
       <p>
-        Written by <strong>{author.name}</strong> {author.summary}
+        {t("writtenBy")} <strong>{author.name}</strong> {author.summary}
         {` `}
         <a href={`https://twitter.com/${social.twitter}`}>
-          You should follow him on Twitter
+          {t("twitterFollowMSg")}
         </a>
       </p>
     </div>
   )
+}
+
+Bio.contextTypes = {
+  t: PropTypes.func.isRequired,
 }
 
 export default Bio
